@@ -70,7 +70,7 @@ export const ProfileContainer = styled.section`
     }
   }
 `
-export const PostsContainer = styled.section`
+export const IssuesContainer = styled.section`
   width: 100%;
   & > div {
     display: flex;
@@ -110,13 +110,13 @@ export const PostsContainer = styled.section`
   }
 `
 
-export const PostsWrapper = styled.section`
+export const IssuesWrapper = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
 `
-export const PostContainer = styled.div`
+export const IssueContainer = styled.div`
   padding: 32px;
   background: ${(props) => props.theme['base-post']};
   border-radius: 10px;

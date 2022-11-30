@@ -1,5 +1,8 @@
 import {
   HomeContainer,
+  IssueContainer,
+  IssuesContainer,
+  IssuesWrapper,
   PostContainer,
   PostsContainer,
   PostsWrapper,
@@ -9,34 +12,32 @@ import api from '../../api/github'
 import { useEffect, useState } from 'react'
 import { ArrowSquareOut, Buildings, GithubLogo, Users } from 'phosphor-react'
 
-import { formatDistanceToNow } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 
 export const Home = () => {
   const [user, setUser] = useState({})
-  const [posts, setPosts] = useState([])
+  const [issues, setIssues] = useState([])
   useEffect(() => {
     const fetchGithub = async () => {
       try {
-        const response = await api.get('/josepholiveira')
+        const response = await api.get('/users/brunomaruya')
         setUser(response.data)
-        console.log(response.data)
       } catch (err) {
         console.log(err)
       }
     }
 
-    const fetchGithubPosts = async () => {
+    const fetchGithubIssues = async () => {
       try {
-        const response = await api.get('/josepholiveira/repos')
-        console.log(response.data)
-        setPosts(response.data)
-        console.log(posts)
+        const response = await api.get('search/issues?q=user:brunomaruya')
+        setIssues(response.data.items)
+        console.log(issues)
       } catch (error) {
         console.log(error)
       }
     }
 
-    fetchGithubPosts()
+    fetchGithubIssues()
     fetchGithub()
   }, [])
 
@@ -69,7 +70,7 @@ export const Home = () => {
         </div>
       </ProfileContainer>
 
-      <PostsContainer>
+      <IssuesContainer>
         <div>
           <h1>Publicações</h1>
           <span>{user.public_repos} publicações</span>
@@ -77,28 +78,36 @@ export const Home = () => {
 
         <input type="text" placeholder="Buscar conteudo" />
 
-        <PostsWrapper>
-          {posts.map((post) => {
-            const date = new Date(user.created_at)
-            const day = date.getDay()
+        <IssuesWrapper>
+          {issues.map((issue) => {
+            const date = new Date(issue.created_at)
+            const day = date.getDate()
             const month = date.getMonth()
             const year = date.getFullYear()
+            const hour = date.getHours()
+            const min = date.getMinutes()
+            const sec = date.getSeconds()
+            console.log(date)
             console.log(day)
-            console.log(month)
-            console.log(year)
+            // console.log('newdate' + new Date())
+            // console.log('date' + new Date(year, month, day, hour, min, sec))
             return (
-              <PostContainer key={post.id}>
+              <IssueContainer key={issue.id}>
                 <div>
-                  <h1>{post.name}</h1>
-                  <span>{formatDistanceToNow(new Date(year, month, day))}</span>
+                  <h1>{issue.title}</h1>
+                  <span>
+                    {formatDistanceToNow(
+                      new Date(year, month, day, hour, min, sec),
+                    )}
+                  </span>
                 </div>
 
-                <p>{post.description ? post.description : 'no description'}</p>
-              </PostContainer>
+                <p>{issue.body ? issue.body : 'no description'}</p>
+              </IssueContainer>
             )
           })}
-        </PostsWrapper>
-      </PostsContainer>
+        </IssuesWrapper>
+      </IssuesContainer>
     </HomeContainer>
   )
 }
