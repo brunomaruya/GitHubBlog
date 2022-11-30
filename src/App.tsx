@@ -9,11 +9,16 @@ import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import coverImg from '../public/Cover.png'
+import { Issue } from './pages/Issue'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/issue/:issueNumber',
+    element: <Issue />,
   },
 ])
 

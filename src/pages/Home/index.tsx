@@ -3,16 +3,20 @@ import {
   IssueContainer,
   IssuesContainer,
   IssuesWrapper,
-  PostContainer,
-  PostsContainer,
-  PostsWrapper,
   ProfileContainer,
 } from './styles'
 import api from '../../api/github'
 import { useEffect, useState } from 'react'
-import { ArrowSquareOut, Buildings, GithubLogo, Users } from 'phosphor-react'
+import {
+  AppWindow,
+  ArrowSquareOut,
+  Buildings,
+  GithubLogo,
+  Users,
+} from 'phosphor-react'
 
-import { format, formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns'
+import { Link } from 'react-router-dom'
 
 export const Home = () => {
   const [user, setUser] = useState({})
@@ -29,7 +33,9 @@ export const Home = () => {
 
     const fetchGithubIssues = async () => {
       try {
-        const response = await api.get('search/issues?q=user:brunomaruya')
+        const response = await api.get(
+          'search/issues?q=repo:brunomaruya/GitHubBlog',
+        )
         setIssues(response.data.items)
         console.log(issues)
       } catch (error) {
@@ -94,7 +100,9 @@ export const Home = () => {
             return (
               <IssueContainer key={issue.id}>
                 <div>
-                  <h1>{issue.title}</h1>
+                  <h1>
+                    <Link to={`/issue/${issue.number}`}>{issue.title}</Link>
+                  </h1>
                   <span>
                     {formatDistanceToNow(
                       new Date(year, month, day, hour, min, sec),

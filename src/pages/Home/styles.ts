@@ -4,6 +4,10 @@ export const HomeContainer = styled.section`
   width: 100%;
   max-width: ${(props) => props.theme['max-width']};
   margin-bottom: 234px;
+  a {
+    color: ${(props) => props.theme['base-text']};
+    text-decoration: none;
+  }
 `
 export const ProfileContainer = styled.section`
   display: flex;
