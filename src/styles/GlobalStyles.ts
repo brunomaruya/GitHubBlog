@@ -10,6 +10,9 @@ export const GlobalStyles = createGlobalStyle`
   body{
     color: ${(props) => props.theme['base-text']};
   }
+  a{
+    text-decoration: none;
+  }
 `
 
 export const AppContainer = styled.div`

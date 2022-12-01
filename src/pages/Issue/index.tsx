@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import {
   ArrowUpRight,
@@ -6,8 +7,7 @@ import {
   ChatDots,
   GithubLogo,
 } from 'phosphor-react'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import api from '../../api/github'
 import {
   IssueBodyContainer,
@@ -18,13 +18,15 @@ import {
 interface IIssue {
   title: string
   comments: string
+  html_url: string
+  body: string
 }
 
 interface IUser {
   login: string
 }
 
-export const Issue = () => {
+export const Issue: React.FC = () => {
   const { issueNumber } = useParams()
   const [issue, setIssue] = useState<IIssue>(Object)
   const [user, setUser] = useState<IUser>(Object)
@@ -66,10 +68,15 @@ export const Issue = () => {
       <IssueHeaderContainer>
         <span>
           <span>
-            <CaretLeft /> VOLTAR
+            <Link to="/">
+              <CaretLeft />
+              VOLTAR
+            </Link>
           </span>
           <span>
-            VER NO GITHUB <ArrowUpRight />
+            <a href={issue.html_url}>
+              VER NO GITHUB <ArrowUpRight />
+            </a>
           </span>
         </span>
 
@@ -93,7 +100,7 @@ export const Issue = () => {
           </li>
         </ul>
       </IssueHeaderContainer>
-      <IssueBodyContainer></IssueBodyContainer>
+      <IssueBodyContainer>{issue.body}</IssueBodyContainer>
     </IssuePageContainer>
   )
 }

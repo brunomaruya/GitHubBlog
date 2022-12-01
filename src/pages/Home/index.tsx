@@ -20,6 +20,7 @@ interface IUser {
   followers: number
   bio: string
   public_repos: number
+  html_url: string
 }
 
 interface IIssue {
@@ -68,7 +69,9 @@ export const Home = () => {
           <span>
             <h1>{user.name}</h1>
             <span>
-              github <ArrowSquareOut color={'#3294f8'} />
+              <a href={user.html_url}>
+                github <ArrowSquareOut color={'#3294f8'} />
+              </a>
             </span>
           </span>
 
@@ -79,7 +82,7 @@ export const Home = () => {
               <GithubLogo /> {user.login}
             </li>
             <li>
-              <Buildings /> {user.company}
+              <Buildings /> {user.company ? user.company : 'none'}
             </li>
             <li>
               <Users /> {user.followers} seguidores

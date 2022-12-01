@@ -15,10 +15,14 @@ export const IssueHeaderContainer = styled.header`
     align-items: center;
     margin-bottom: 20px;
     span {
-      color: ${(props) => props.theme.blue};
       font-weight: 700;
       font-size: 12px;
       line-height: 19px;
+      a {
+        display: flex;
+        align-items: center;
+        color: ${(props) => props.theme.blue};
+      }
     }
   }
   h1 {
@@ -42,4 +46,9 @@ export const IssueHeaderContainer = styled.header`
     }
   }
 `
-export const IssueBodyContainer = styled.main``
+export const IssueBodyContainer = styled.main`
+  max-width: 100%;
+  margin: 40px 32px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+`

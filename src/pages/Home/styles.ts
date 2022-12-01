@@ -25,6 +25,9 @@ export const ProfileContainer = styled.section`
 
   div {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     & > span {
       display: flex;
@@ -44,6 +47,11 @@ export const ProfileContainer = styled.section`
         gap: 0.5rem;
         color: ${(props) => props.theme.blue};
         text-transform: uppercase;
+      }
+      a {
+        display: flex;
+        align-items: center;
+        color: ${(props) => props.theme.blue};
       }
     }
 
@@ -117,10 +125,11 @@ export const IssuesContainer = styled.section`
 export const IssuesWrapper = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
 `
 export const IssueContainer = styled.div`
+  width: 100%;
   padding: 32px;
   background: ${(props) => props.theme['base-post']};
   border-radius: 10px;
@@ -139,8 +148,12 @@ export const IssueContainer = styled.div`
   }
 
   p {
+    max-width: 100%;
     font-weight: 400;
     font-size: 16px;
     line-height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `
