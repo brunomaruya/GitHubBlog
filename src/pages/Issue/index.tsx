@@ -4,9 +4,7 @@ import {
   Calendar,
   CaretLeft,
   ChatDots,
-  GitBranch,
   GithubLogo,
-  GitlabLogo,
 } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -17,17 +15,26 @@ import {
   IssuePageContainer,
 } from './styles'
 
+interface IIssue {
+  title: string
+  comments: string
+}
+
+interface IUser {
+  login: string
+}
+
 export const Issue = () => {
   const { issueNumber } = useParams()
-  const [issue, setIssue] = useState({})
-  const [user, setUser] = useState({})
+  const [issue, setIssue] = useState<IIssue>(Object)
+  const [user, setUser] = useState<IUser>(Object)
 
-  const [day, setDay] = useState()
-  const [month, setmonth] = useState()
-  const [year, setyear] = useState()
-  const [hours, sethours] = useState()
-  const [min, setmin] = useState()
-  const [sec, setsec] = useState()
+  const [day, setDay] = useState<number>()
+  const [month, setmonth] = useState<number>(Number)
+  const [year, setyear] = useState<number>(Number)
+  const [hours, sethours] = useState<number>()
+  const [min, setmin] = useState<number>()
+  const [sec, setsec] = useState<number>()
 
   useEffect(() => {
     const fetchGitHubIssuePage = async () => {
