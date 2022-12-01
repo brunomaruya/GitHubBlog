@@ -7,20 +7,32 @@ import {
 } from './styles'
 import api from '../../api/github'
 import { useEffect, useState } from 'react'
-import {
-  AppWindow,
-  ArrowSquareOut,
-  Buildings,
-  GithubLogo,
-  Users,
-} from 'phosphor-react'
+import { ArrowSquareOut, Buildings, GithubLogo, Users } from 'phosphor-react'
 
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from 'react-router-dom'
 
+interface IUser {
+  avatar_url: string
+  name: string
+  login: string
+  company: string
+  followers: number
+  bio: string
+  public_repos: number
+}
+
+interface IIssue {
+  id: number
+  created_at: string
+  number: number
+  title: string
+  body: string
+}
+
 export const Home = () => {
-  const [user, setUser] = useState({})
-  const [issues, setIssues] = useState([])
+  const [user, setUser] = useState<IUser>(Object)
+  const [issues, setIssues] = useState<IIssue[]>([])
   useEffect(() => {
     const fetchGithub = async () => {
       try {
