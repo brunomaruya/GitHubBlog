@@ -6,7 +6,7 @@ import {
   ProfileContainer,
 } from './styles'
 import api from '../../api/github'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ArrowSquareOut, Buildings, GithubLogo, Users } from 'phosphor-react'
 
 import { formatDistanceToNow } from 'date-fns'
@@ -34,6 +34,13 @@ interface IIssue {
 export const Home = () => {
   const [user, setUser] = useState<IUser>(Object)
   const [issues, setIssues] = useState<IIssue[]>([])
+  const [inputValue, setInputValue] = useState('')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+    console.log(inputValue)
+  }
+
   useEffect(() => {
     const fetchGithub = async () => {
       try {
@@ -50,7 +57,6 @@ export const Home = () => {
           'search/issues?q=repo:brunomaruya/GitHubBlog',
         )
         setIssues(response.data.items)
-        console.log(issues)
       } catch (error) {
         console.log(error)
       }
@@ -97,7 +103,12 @@ export const Home = () => {
           <span>{user.public_repos} publicações</span>
         </div>
 
-        <input type="text" placeholder="Buscar conteudo" />
+        <input
+          type="text"
+          placeholder="Buscar conteudo"
+          onChange={handleChange}
+          value={inputValue}
+        />
 
         <IssuesWrapper>
           {issues.map((issue) => {
@@ -108,10 +119,7 @@ export const Home = () => {
             const hour = date.getHours()
             const min = date.getMinutes()
             const sec = date.getSeconds()
-            console.log(date)
-            console.log(day)
-            // console.log('newdate' + new Date())
-            // console.log('date' + new Date(year, month, day, hour, min, sec))
+
             return (
               <IssueContainer key={issue.id}>
                 <div>

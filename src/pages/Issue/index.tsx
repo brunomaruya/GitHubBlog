@@ -54,8 +54,6 @@ export const Issue: React.FC = () => {
         sethours(date.getHours())
         setmin(date.getMinutes())
         setsec(date.getSeconds())
-        console.log(day)
-        console.log(issue)
       } catch (error) {
         console.log(error)
       }
